@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import OrderInfo from './OrderInfo.vue';
 import type { OrderInfoType } from './../types/types'
-import { onMounted, ref } from 'vue';
+import { onMounted, ref} from 'vue';
+
 
 const orders = ref<OrderInfoType[]>([]);
 const fetchData = async () => {
@@ -14,6 +15,12 @@ const fetchData = async () => {
     console.error(error)
   }
 }
+
+const emit = defineEmits<{ (event: 'update', value: boolean): void }>()
+const changeView = () => {
+  emit('update', false)
+}
+
 onMounted(fetchData)
 
 </script>
@@ -22,7 +29,7 @@ onMounted(fetchData)
 
   <div class="w-full flex justify-between items-center">
     <h2 class="text-[25px] font-semibold">Listado de Ordenes</h2>
-    <button class="bg-stone-500 rounded-xl p-3 font-bold cursor-pointer hover:bg-stone-400 border">Agregar
+    <button @click="changeView" class="bg-stone-500 rounded-xl p-3 font-bold cursor-pointer hover:bg-stone-400 border">Agregar
       Orden</button>
   </div>
 

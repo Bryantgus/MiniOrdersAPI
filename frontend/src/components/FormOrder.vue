@@ -5,7 +5,6 @@ import { onMounted, ref } from 'vue'
 const nombre = ref('')
 const total = ref('')
 
-const postOrder = () => {
   const postOrder = async () => {
     try {
       const response = await fetch('http://localhost:5068/api/Orders', {
@@ -29,7 +28,7 @@ const postOrder = () => {
       console.error(error)
     }
   }
-}
+
 </script>
 
 <template>

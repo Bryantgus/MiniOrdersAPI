@@ -1,6 +1,10 @@
 <script setup lang="ts">
 import OrdersView from './components/OrdersView.vue'
 import FormOrder from './components/FormOrder.vue';
+import { ref } from 'vue';
+
+const changeView = ref(true)
+
 </script>
 
 <template>
@@ -10,11 +14,11 @@ import FormOrder from './components/FormOrder.vue';
       <h1 class="font-bold text-[35px]">Mini Orders App</h1>
       <img class="w-10 h-10" src="../public/orderlogo.png" alt="logo">
     </div>
-    
-    <OrdersView/>
-    <FormOrder/>
+
+    <OrdersView @update="changeView = $event" v-if="changeView" />
+    <FormOrder  v-else/>
+
 
   </div>
 
 </template>
-
