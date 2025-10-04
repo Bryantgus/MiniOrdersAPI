@@ -16,9 +16,9 @@ const fetchData = async () => {
   }
 }
 
-const emit = defineEmits<{ (event: 'update', value: boolean): void }>()
+const emit = defineEmits<{ (event: 'update', payload: {value: boolean, apiResponse: string}): void }>()
 const changeView = () => {
-  emit('update', false)
+  emit('update', {value: false, apiResponse:''})
 }
 
 onMounted(fetchData)

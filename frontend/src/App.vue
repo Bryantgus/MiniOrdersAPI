@@ -1,9 +1,16 @@
 <script setup lang="ts">
 import OrdersView from './components/OrdersView.vue'
 import FormOrder from './components/FormOrder.vue';
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 
-const changeView = ref(true)
+const changeView = ref({
+  apiResponse: '',
+  value: true
+})
+
+watch(changeView, (newVal, oldVal) => {
+  console.log('changeView cambió:', newVal)
+}, { deep: true })
 
 </script>
 
@@ -15,8 +22,9 @@ const changeView = ref(true)
       <img class="w-10 h-10" src="../public/orderlogo.png" alt="logo">
     </div>
 
-    <OrdersView @update="changeView = $event" v-if="changeView" />
-    <FormOrder  v-else/>
+    <OrdersView @update="changeView = $event" v-if="changeView.value" />
+
+    <FormOrder @update="changeView = $event" v-else />
 
 
   </div>
