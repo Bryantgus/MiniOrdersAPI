@@ -1,5 +1,11 @@
 <script setup lang="ts">
 import OrderInfo from './OrderInfo.vue';
+import type { OrderInfoType } from '@/types/types';
+
+const props = defineProps<{
+  orders: OrderInfoType[]
+}>()
+
 </script>
 
 <template>
@@ -13,7 +19,7 @@ import OrderInfo from './OrderInfo.vue';
       </tr>
     </thead>
     <tbody>
-      <OrderInfo/>
+      <OrderInfo v-for="order in orders" :key="order.guid" :order="order" />
     </tbody>
   </table>
 </template>
