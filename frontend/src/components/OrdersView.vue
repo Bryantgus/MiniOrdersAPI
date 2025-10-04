@@ -32,8 +32,8 @@ onMounted(fetchData)
     <button @click="changeView" class="bg-stone-500 rounded-xl p-3 font-bold cursor-pointer hover:bg-stone-400 border">Agregar
       Orden</button>
   </div>
-
-  <table class="min-w-full border border-gray-300 rounded-lg text-center">
+  <span v-if="orders.length === 0">No tienes ninguna orden agregada</span>
+  <table v-if="orders.length > 0" class="min-w-full border border-gray-300 rounded-lg text-center">
     <thead class="bg-stone-500">
       <tr>
         <th class="py-2 border-b">Id</th>

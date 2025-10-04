@@ -22,6 +22,14 @@ watch(changeView, (newVal, oldVal) => {
       <img class="w-10 h-10" src="../public/orderlogo.png" alt="logo">
     </div>
 
+    <span v-if="changeView.apiResponse !== ''" :class="[
+      'absolute top-[10%] left-[80%] px-4 py-2 rounded-lg shadow-lg z-10',
+      changeView.apiResponse[0] === 'O' ? 'bg-green-500 text-white' :
+        changeView.apiResponse[0] === 'E' ? 'bg-red-500 text-white' :
+          'bg-gray-500 text-white'
+    ]">
+      {{ changeView.apiResponse }}</span>
+
     <OrdersView @update="changeView = $event" v-if="changeView.value" />
 
     <FormOrder @update="changeView = $event" v-else />
