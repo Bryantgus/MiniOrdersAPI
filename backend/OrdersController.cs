@@ -7,12 +7,7 @@ namespace backend;
 public class OrdersController : ControllerBase
 {
     private static List<Order> Orders = new List<Order>
-    {
-        new Order { Guid = 1, Nombre = "Bryant Tejeda", Fecha = "12/12/2025", Total = 100 },
-        new Order { Guid = 2, Nombre = "Carlos Pérez", Fecha = "13/12/2025", Total = 200 },
-        new Order { Guid = 3, Nombre = "Ana Gómez", Fecha = "14/12/2025", Total = 200 },
-        new Order { Guid = 4, Nombre = "Luis Martínez", Fecha = "15/12/2025", Total = 200 }
-    };
+    {};
 
     [HttpGet]
     public IActionResult GetOrders()
