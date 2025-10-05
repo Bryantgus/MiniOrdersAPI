@@ -25,7 +25,7 @@ const cerrarAcciones = (apiResponse: string) => {
   ordersKey.value += 1
 
   //Cambiando mensaje de api Response
-  changeView.value.apiResponse = apiResponse
+  changeView.value.apiResponse = apiResponse      
 }
 
 // watch(accionAndGuid, (newVal, oldVal) => {

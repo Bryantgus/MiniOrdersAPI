@@ -1,12 +1,16 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
 
-
 const dataOrder = ref({
   guid: 0,
   nombre: '',
   fecha: '',
   total: ''
+})
+const guid = ref(0)
+const warningInputs = ref({
+  nombreW: false,
+  totalW: false
 })
 
 const props = defineProps<{
@@ -19,11 +23,15 @@ const emit = defineEmits<{
 }>()
 
 const fetchOrder = () => {
+  console.log("fetch");
+
   try {
     fetch(`http://localhost:5068/api/Orders/${props.guid}`)
       .then(response => response.json())
       .then(data => {
-        dataOrder.value = data
+        guid.value = data.guid
+        dataOrder.value.nombre = data.nombre
+        dataOrder.value.total = data.total
       })
   } catch (error) {
     emit("close", "Error al realizar accion")
@@ -31,10 +39,18 @@ const fetchOrder = () => {
 }
 
 const editOrDeleteFetch = async (accion: string) => {
-  
-  if (accion === 'editar') {
-    try {
 
+
+  if (accion === 'editar') {
+    dataOrder.value.nombre !== '' && (warningInputs.value.nombreW = false)
+    dataOrder.value.total !== '' && (warningInputs.value.totalW = false)
+    if (dataOrder.value.nombre === '' || dataOrder.value.total === '' || Number(dataOrder.value.total) <= 0) {
+      dataOrder.value.nombre === '' && (warningInputs.value.nombreW = true)
+      dataOrder.value.total === '' && (warningInputs.value.totalW = true)
+      Number(dataOrder.value.total) <= 0 && (warningInputs.value.totalW = true)
+      return
+    }
+    try {
       const response = await fetch(`http://localhost:5068/api/Orders/${props.guid}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
@@ -53,19 +69,19 @@ const editOrDeleteFetch = async (accion: string) => {
     }
   } else if (accion === 'eliminar') {
     console.log("Eliminar");
-    
+
     try {
       const response = await fetch(`http://localhost:5068/api/Orders/${props.guid}`, {
         method: 'DELETE'
       })
-      
+
       if (!response.ok) {
-        emit("close", "Error al editar Orden")
+        emit("close", "Error al eliminada Orden")
         throw new Error('Error al eliminar')
       }
       emit("close", "Order editada correctamente")
     } catch (error) {
-      emit("close", "Error al editar Orden")
+      emit("close", "Error al eliminada Orden")
     }
   }
 }
@@ -120,12 +136,16 @@ onMounted(fetchOrder)
             class="jutify-center shadow shadow-stone-300 flex gap-3 bg-stone-200 p-2 rounded-xl hover:bg-stone-300 items-center justify-center">
             <span class="font-semibold">Nombre: </span>
             <input class="border border-stone-400 rounded-xl p-1 pl-3" type="text" v-model="dataOrder.nombre">
+            <span v-if="warningInputs.nombreW" class="text-red-900 font[12px]">El <strong>nombre</strong> no puede ir
+              vacio</span>
           </div>
 
           <div
             class="jutify-center shadow shadow-stone-300 flex gap-3 bg-stone-200 p-2 rounded-xl hover:bg-stone-300 items-center justify-center">
             <span class="font-semibold">Total: </span>
             <input class="border border-stone-400 rounded-xl p-1 pl-3" type="text" v-model="dataOrder.total">
+            <span v-if="warningInputs.totalW" class="text-red-900 font[12px] w-[200px]">El <strong>total</strong> debe
+              ser mayor a 0 y no debe ir vacio</span>
           </div>
           <button type="submit"
             class="w-[400px] mt-3 p-3 bg-stone-400 text-white rounded-xl pl-10 pr-10 cursor-pointer hover:bg-stone-500">Agregar
