@@ -25,7 +25,7 @@ const changeView = () => {
   emit('update', { value: false, apiResponse: '' })
 }
 
-const ordersPerPage = 5
+const ordersPerPage = 3
 const currentPage = ref(1)
 const totalPages = computed(() => {
   return Math.ceil(orders.value.length / ordersPerPage);

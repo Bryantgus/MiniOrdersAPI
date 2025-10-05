@@ -79,7 +79,7 @@ const editOrDeleteFetch = async (accion: string) => {
         emit("close", "Error al eliminada Orden")
         throw new Error('Error al eliminar')
       }
-      emit("close", "Order editada correctamente")
+      emit("close", "Order eliminada correctamente")
     } catch (error) {
       emit("close", "Error al eliminada Orden")
     }
@@ -133,17 +133,22 @@ onMounted(fetchOrder)
 
         <form @submit.prevent="editOrDeleteFetch(props.accion)" class="flex flex-col gap-2 ">
           <div
-            class="jutify-center shadow shadow-stone-300 flex gap-3 bg-stone-200 p-2 rounded-xl hover:bg-stone-300 items-center justify-center">
-            <span class="font-semibold">Nombre: </span>
-            <input class="border border-stone-400 rounded-xl p-1 pl-3" type="text" v-model="dataOrder.nombre">
+            class="jutify-center flex-col shadow shadow-stone-300 flex gap-3 bg-stone-200 p-2 rounded-xl hover:bg-stone-300 items-center justify-center">
+
+            <div>
+              <span class="font-semibold">Nombre: </span>
+              <input class="border border-stone-400 rounded-xl p-1 pl-3" type="text" v-model="dataOrder.nombre">
+            </div>
             <span v-if="warningInputs.nombreW" class="text-red-900 font[12px]">El <strong>nombre</strong> no puede ir
               vacio</span>
           </div>
 
           <div
-            class="jutify-center shadow shadow-stone-300 flex gap-3 bg-stone-200 p-2 rounded-xl hover:bg-stone-300 items-center justify-center">
-            <span class="font-semibold">Total: </span>
-            <input class="border border-stone-400 rounded-xl p-1 pl-3" type="text" v-model="dataOrder.total">
+            class="jutify-center flex-col shadow shadow-stone-300 flex gap-3 bg-stone-200 p-2 rounded-xl hover:bg-stone-300 items-center justify-center">
+            <div>
+              <span class="font-semibold">Total: </span>
+              <input class="border border-stone-400 rounded-xl p-1 pl-3" type="text" v-model="dataOrder.total">
+            </div>
             <span v-if="warningInputs.totalW" class="text-red-900 font[12px] w-[200px]">El <strong>total</strong> debe
               ser mayor a 0 y no debe ir vacio</span>
           </div>
