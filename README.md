@@ -18,5 +18,5 @@ URL: http://localhost:5173/
 
 ### Backend
 abrir en otra terminal diferente el directorio raiz del proyecto
-``` cd frontend/ ```
+``` cd backend/ ```
 ``` dotnet run ```
