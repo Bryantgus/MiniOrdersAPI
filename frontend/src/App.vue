@@ -3,7 +3,8 @@ import OrdersView from './components/OrdersView.vue'
 import FormOrder from './components/FormOrder.vue'
 import Acciones from './components/Acciones.vue';
 import { ref, watch } from 'vue';
-import { close } from 'fs';
+
+const ordersKey = ref(0)
 
 const changeView = ref({
   apiResponse: '',
@@ -14,18 +15,19 @@ const accionAndGuid = ref({
   accion: '',
   guid: 0
 })
-const accion = (payload: any) => {
+const accion = (payload: any) => {  
   accionAndGuid.value = payload
 }
 
 const cerrarAcciones = () => {
-  accionAndGuid.value.accion = '',
+  accionAndGuid.value.accion = ''
   accionAndGuid.value.guid = 0
+  ordersKey.value += 1
 }
 
-watch(accionAndGuid, (newVal, oldVal) => {
-  console.log('showAcciones cambió:', newVal)
-}, { deep: true })
+// watch(accionAndGuid, (newVal, oldVal) => {
+//   console.log('showAcciones cambió:', newVal)
+// }, { deep: true })
 
 </script>
 
@@ -47,7 +49,7 @@ watch(accionAndGuid, (newVal, oldVal) => {
     ]">
       {{ changeView.apiResponse }}</span>
 
-    <OrdersView @update="changeView = $event" @accion="accion" v-if="changeView.value" />
+    <OrdersView :key="ordersKey" @update="changeView = $event" @accion="accion" v-if="changeView.value" />
 
     <FormOrder @update="changeView = $event" v-else @accion="accion" />
 

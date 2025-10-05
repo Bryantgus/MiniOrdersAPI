@@ -9,11 +9,11 @@ const props = defineProps<{
 }>()
 
 const emit = defineEmits<{
-  (event: 'update', payload: { accion: 'ver' | 'editar' | 'eliminar', guidOrder: number }): void
+  (event: 'update', payload: { accion: 'ver' | 'editar' | 'eliminar', guid: number }): void
 }>()
 
 const acciones = (accionesType: 'ver' | 'editar' | 'eliminar') => {
-  emit('update', {accion: accionesType, guidOrder: props.order.guid})
+  emit('update', {accion: accionesType, guid: props.order.guid})
 }
 </script>
 
