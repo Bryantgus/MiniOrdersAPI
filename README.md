@@ -18,3 +18,4 @@ ejecutar los siguiente comandos en la terminal
 abrir en otra terminal diferente el directorio raiz del proyecto
 ``` cd frontend/ ```
 ``` dotnet run ```
+URL: http://localhost:5173/
