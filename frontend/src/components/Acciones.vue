@@ -29,9 +29,7 @@ const fetchOrder = () => {
     fetch(`http://localhost:5068/api/Orders/${props.guid}`)
       .then(response => response.json())
       .then(data => {
-        guid.value = data.guid
-        dataOrder.value.nombre = data.nombre
-        dataOrder.value.total = data.total
+        dataOrder.value = data
       })
   } catch (error) {
     emit("close", "Error al realizar accion")
