@@ -1,28 +1,37 @@
 <script setup lang="ts">
 import OrdersView from './components/OrdersView.vue'
-import FormOrder from './components/FormOrder.vue';
+import FormOrder from './components/FormOrder.vue'
+import Acciones from './components/Acciones.vue';
 import { ref, watch } from 'vue';
+import { close } from 'fs';
 
 const changeView = ref({
   apiResponse: '',
   value: true
 })
 
-const showAcciones = ref({
+const accionAndGuid = ref({
   accion: '',
   guid: 0
 })
 const accion = (payload: any) => {
-  showAcciones.value = payload
+  accionAndGuid.value = payload
 }
 
-watch(showAcciones, (newVal, oldVal) => {
+const cerrarAcciones = () => {
+  accionAndGuid.value.accion = '',
+  accionAndGuid.value.guid = 0
+}
+
+watch(accionAndGuid, (newVal, oldVal) => {
   console.log('showAcciones cambió:', newVal)
 }, { deep: true })
 
 </script>
 
 <template>
+
+  <Acciones v-if="accionAndGuid.accion !== ''" :accion="accionAndGuid.accion" :guid="accionAndGuid.guid" @close="cerrarAcciones"/>
 
   <div class="flex flex-col items-center w-[50%] mx-auto mt-10 gap-10">
     <div class="flex items-center justify-center gap-3">
@@ -38,9 +47,9 @@ watch(showAcciones, (newVal, oldVal) => {
     ]">
       {{ changeView.apiResponse }}</span>
 
-    <OrdersView @update="changeView = $event" @accion="accion" v-if="changeView.value"/>
+    <OrdersView @update="changeView = $event" @accion="accion" v-if="changeView.value" />
 
-    <FormOrder @update="changeView = $event" v-else @accion="accion"/>
+    <FormOrder @update="changeView = $event" v-else @accion="accion" />
 
   </div>
 

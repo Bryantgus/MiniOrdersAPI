@@ -7,7 +7,7 @@ namespace backend;
 public class OrdersController : ControllerBase
 {
     private static List<Order> Orders = new List<Order>
-    {};
+    { };
 
     [HttpGet]
     public IActionResult GetOrders()
