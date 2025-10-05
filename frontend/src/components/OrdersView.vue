@@ -16,14 +16,17 @@ const fetchData = async () => {
     console.error(error)
   }
 }
-const emit = defineEmits<{ (event: 'update', payload: { value: boolean, apiResponse: string }): void }>()
+const emit = defineEmits<{
+  (event: 'update', payload: { value: boolean, apiResponse: string }): void;
+  (event: 'accion', payload: { value: boolean, apiResponse: string }): void
+}>()
 
 const changeView = () => {
   emit('update', { value: false, apiResponse: '' })
 }
 
 const ordersPerPage = 5
-const currentPage = ref(2)
+const currentPage = ref(1)
 const totalPages = computed(() => {
   return Math.ceil(orders.value.length / ordersPerPage);
 });
@@ -38,6 +41,10 @@ const changePage = (page: number) => {
   if (page >= 1 && page <= totalPages.value) {
     currentPage.value = page;
   }
+}
+
+const seleccionarAccion = (payload: any) => {
+  emit('accion', payload)
 }
 
 onMounted(fetchData)
@@ -64,13 +71,13 @@ onMounted(fetchData)
       </tr>
     </thead>
     <tbody>
-      <OrderInfo v-for="order in orderPerPages" :key="order.guid" :order="order" />
+      <OrderInfo v-for="order in orderPerPages" :key="order.guid" :order="order" @update="seleccionarAccion" />
     </tbody>
   </table>
 
   <div class="flex gap-1">
     <button class="p-3 bg-stone-500 hover:bg-stone-400 rounded cursor-pointer"><</button>
-    <NumberPage v-for="n in totalPages" :key="n" :number="n"  @update="changePage" />
+    <NumberPage v-for="n in totalPages" :key="n" :number="n" @update="changePage" />
     <button class="p-3 bg-stone-500 hover:bg-stone-400 rounded cursor-pointer">></button>
   </div>
 </template>

@@ -14,9 +14,10 @@ const postOrder = async () => {
 
   nombre.value !== '' && (warningInputs.value.nombreW = false)
   total.value !== '' && (warningInputs.value.totalW = false)
-  if (nombre.value === '' || total.value === '') {
+  if (nombre.value === '' || total.value === '' || Number(total.value) <= 0) {
     nombre.value === '' && (warningInputs.value.nombreW = true)
     total.value === '' && (warningInputs.value.totalW = true)
+    Number(total.value) <= 0 && (warningInputs.value.totalW = true)
     return
   }
 
@@ -70,8 +71,7 @@ const backOrderView = () => {
         <span class="text-[18px] font-semibold">Total</span>
         <input v-model="total" class="focus:outline focus:outline-stone-300 p-1 bg-stone-400 rounded-xl"
           placeholder="Ingresar el Total" type="number">
-        <span v-if="warningInputs.totalW" class="text-red-900 font[12px]">El <strong>total</strong> no puede ir
-          vacio</span>
+        <span v-if="warningInputs.totalW" class="text-red-900 font[12px] w-[200px]">El <strong>total</strong> debe ser mayor a 0 y no debe ir vacio</span>
       </div>
 
       <button type="submit"

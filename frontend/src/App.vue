@@ -8,8 +8,16 @@ const changeView = ref({
   value: true
 })
 
-watch(changeView, (newVal, oldVal) => {
-  console.log('changeView cambió:', newVal)
+const showAcciones = ref({
+  accion: '',
+  guid: 0
+})
+const accion = (payload: any) => {
+  showAcciones.value = payload
+}
+
+watch(showAcciones, (newVal, oldVal) => {
+  console.log('showAcciones cambió:', newVal)
 }, { deep: true })
 
 </script>
@@ -30,9 +38,9 @@ watch(changeView, (newVal, oldVal) => {
     ]">
       {{ changeView.apiResponse }}</span>
 
-    <OrdersView @update="changeView = $event" v-if="changeView.value" />
+    <OrdersView @update="changeView = $event" @accion="accion" v-if="changeView.value"/>
 
-    <FormOrder @update="changeView = $event" v-else />
+    <FormOrder @update="changeView = $event" v-else @accion="accion"/>
 
   </div>
 
