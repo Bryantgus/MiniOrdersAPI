@@ -19,10 +19,13 @@ const accion = (payload: any) => {
   accionAndGuid.value = payload
 }
 
-const cerrarAcciones = () => {
+const cerrarAcciones = (apiResponse: string) => {
   accionAndGuid.value.accion = ''
   accionAndGuid.value.guid = 0
   ordersKey.value += 1
+
+  //Cambiando mensaje de api Response
+  changeView.value.apiResponse = apiResponse
 }
 
 // watch(accionAndGuid, (newVal, oldVal) => {
