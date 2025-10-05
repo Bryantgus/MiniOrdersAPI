@@ -11,7 +11,7 @@ const warningInputs = ref({
 const emit = defineEmits<{ (event: 'update', payload: { value: boolean, apiResponse: string }): void }>()
 
 const postOrder = async () => {
-  
+
   nombre.value !== '' && (warningInputs.value.nombreW = false)
   total.value !== '' && (warningInputs.value.totalW = false)
   if (nombre.value === '' || total.value === '') {
@@ -19,8 +19,6 @@ const postOrder = async () => {
     total.value === '' && (warningInputs.value.totalW = true)
     return
   }
-
-  
 
   try {
     const response = await fetch('http://localhost:5068/api/Orders', {
@@ -49,6 +47,10 @@ const postOrder = async () => {
   }
 }
 
+const backOrderView = () => {
+  emit('update', { value: true, apiResponse: "" })
+} 
+
 </script>
 
 <template>
@@ -73,7 +75,10 @@ const postOrder = async () => {
       </div>
 
       <button type="submit"
-        class="cursor-pointer bg-stone-700 mt-10 mb-5 text-white p-2 rounded hover:bg-stone-600">Agregar Orden</button>
+        class="mx-auto w-50 cursor-pointer bg-stone-700 mt-2 text-white p-2 rounded hover:bg-stone-600">Agregar Orden</button>
     </form>
+
+    <button @click="backOrderView"
+      class="w-50 cursor-pointer bg-stone-700 text-white p-2 rounded hover:bg-stone-600">Volver</button>
   </section>
 </template>
