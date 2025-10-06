@@ -31,7 +31,31 @@ y se me complico un poco al no conocer demasiado vue en su organizacion al pasar
 
 ## Ejemplos de uso
 
+## Pagina de inicio
+
+![Inicio](./frontend/src/assets/orderapp.png)
+
+Aqui se mostraran todas las ordenes
+
+### Agregar orden
+
+![Agregar](./frontend/src/assets/agregar.png)
+
+Boton para agregar una nueva orden
+
+Para agregar una nueva orden hacer click sobre este boton que esta en la parte superior derecha de la app
+
+
+### Acciones
+
+![Acciones](./frontend/src/assets/acciones.png)
+
+una vez creada la orden, tendra la opcion de acciones para ver la orden, editar la orden o eliminar la orden
+
+### Paginación
+
 ![Paginacion](./frontend/src/assets/paginacion.png)
+
 Permite viajar una pagina atras,una adelante o cualquiera al hacer click en cualquier numero para ver las ordenes
 
 
