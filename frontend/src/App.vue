@@ -54,7 +54,7 @@ const cerrarAcciones = (apiResponse: string) => {
 
     <OrdersView :key="ordersKey" @update="changeView = $event" @accion="accion" v-if="changeView.value" />
 
-    <FormOrder @update="changeView = $event" v-else @accion="accion" />
+    <FormOrder @update="changeView = $event" v-else/>
 
   </div>
 

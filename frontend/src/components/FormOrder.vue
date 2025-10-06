@@ -66,13 +66,13 @@ const backOrderView = () => {
 </script>
 
 <template>
-  <section class="flex flex-col items-center justify-center bg-stone-500 rounded-xl p-6 gap-3 shadow shadow-stone-400">
+  <section class="flex flex-col items-center justify-center bg-stone-400 rounded-xl p-6 gap-3 shadow shadow-stone-400">
     <h2 class="text-[30px] font-semibold">Crear nueva Orden</h2>
     <form @submit.prevent="postOrder" class="flex flex-col gap-2">
 
       <div class="flex flex-col gap-1">
         <span class="text-[18px] font-semibold">Nombre</span>
-        <input v-model="nombre" class="focus:outline focus:outline-stone-300 p-1 bg-stone-400 rounded-xl"
+        <input v-model="nombre" class="focus:outline focus:outline-stone-300 p-1 bg-stone-300 rounded-xl"
           placeholder="Ingresar nombre" type="text" @input="formatNombre"
           pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+" Z>
         <span v-if="warningInputs.nombreW" class="text-red-900 font[12px]">El <strong>nombre</strong> no puede ir
@@ -81,18 +81,18 @@ const backOrderView = () => {
 
       <div class="flex flex-col gap-1">
         <span class="text-[18px] font-semibold">Total</span>
-        <input v-model="total" class="focus:outline focus:outline-stone-300 p-1 bg-stone-400 rounded-xl"
+        <input v-model="total" class="focus:outline focus:outline-stone-300 p-1 bg-stone-300 rounded-xl"
           placeholder="Ingresar el Total" type="number">
         <span v-if="warningInputs.totalW" class="text-red-900 font[12px] w-[200px]">El <strong>total</strong> debe ser
           mayor a 0 y no debe ir vacio</span>
       </div>
 
       <button type="submit"
-        class="mx-auto w-50 cursor-pointer bg-stone-700 mt-2 text-white p-2 rounded hover:bg-stone-600">Agregar
+        class="mx-auto w-50 cursor-pointer bg-stone-600 mt-2 text-white p-2 rounded hover:bg-stone-500">Agregar
         Orden</button>
     </form>
 
     <button @click="backOrderView"
-      class="w-50 cursor-pointer bg-stone-700 text-white p-2 rounded hover:bg-stone-600">Volver</button>
+      class="w-50 cursor-pointer bg-stone-600 text-white p-2 rounded hover:bg-stone-500">Volver</button>
   </section>
 </template>

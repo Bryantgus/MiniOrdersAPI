@@ -30,6 +30,7 @@ const fetchOrder = () => {
       .then(response => response.json())
       .then(data => {
         dataOrder.value = data
+        dataOrder.value.fecha = data.fecha.toString().slice(0,10)
       })
   } catch (error) {
     emit("close", "Error al realizar accion")

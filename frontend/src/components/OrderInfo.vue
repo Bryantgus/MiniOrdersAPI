@@ -9,7 +9,7 @@ const props = defineProps<{
 }>()
 
 const emit = defineEmits<{
-  (event: 'update', payload: { accion: 'ver' | 'editar' | 'eliminar', guid: number }): void
+  (event: 'update', payload: { accion: 'ver' | 'editar' | 'eliminar', guid: string }): void
 }>()
 
 const acciones = (accionesType: 'ver' | 'editar' | 'eliminar') => {

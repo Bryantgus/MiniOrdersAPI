@@ -5,6 +5,7 @@ import { computed, onMounted, ref } from 'vue';
 import NumberPage from './NumberPage.vue';
 
 
+const guid = ref('')
 const orders = ref<OrderInfoType[]>([]);
 const fetchData = async () => {
   try {
@@ -12,11 +13,13 @@ const fetchData = async () => {
     if (!response.ok) throw new Error('Error en la solicitud')
     const allOrders: OrderInfoType[] = await response.json()
 
+    
     orders.value = allOrders.map((value: OrderInfoType, index: number) => {
+      guid.value = value.guid
       return {
-        guid: index += 1,
+        guid: (index += 1).toString(),
         nombre: value.nombre,
-        fecha: value.fecha.toString(),
+        fecha: value.fecha.toString().slice(0, 10),
         total: value.total
       }
     })
@@ -26,7 +29,7 @@ const fetchData = async () => {
 }
 const emit = defineEmits<{
   (event: 'update', payload: { value: boolean, apiResponse: string }): void;
-  (event: 'accion', payload: { value: boolean, apiResponse: string }): void
+  (event: 'accion', payload: { accion: string, guid: string }): void
 }>()
 
 const changeView = () => {
@@ -57,8 +60,11 @@ const changePageOnce = (value: number) => {
   currentPage.value = currentPage.value + value
 }
 
-const seleccionarAccion = (payload: any) => {
-  emit('accion', payload)
+const seleccionarAccion = (payload: { accion: 'ver' | 'editar' | 'eliminar', guid: string }) => {
+  emit('accion', {
+    accion: payload.accion,
+    guid: guid.value    
+  })
 }
 
 onMounted(fetchData)

@@ -1,5 +1,5 @@
 export type OrderInfoType = {
-  guid: number;
+  guid: string;
   nombre: string;
   fecha: string;
   total: number
