@@ -13,16 +13,7 @@ const fetchData = async () => {
     if (!response.ok) throw new Error('Error en la solicitud')
     const allOrders: OrderInfoType[] = await response.json()
 
-    
-    orders.value = allOrders.map((value: OrderInfoType, index: number) => {
-      guid.value = value.guid
-      return {
-        guid: (index += 1).toString(),
-        nombre: value.nombre,
-        fecha: value.fecha.toString().slice(0, 10),
-        total: value.total
-      }
-    })
+    orders.value = allOrders
   } catch (error) {
     console.error(error)
   }
@@ -63,7 +54,7 @@ const changePageOnce = (value: number) => {
 const seleccionarAccion = (payload: { accion: 'ver' | 'editar' | 'eliminar', guid: string }) => {
   emit('accion', {
     accion: payload.accion,
-    guid: guid.value    
+    guid: payload.guid    
   })
 }
 
