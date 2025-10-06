@@ -1,7 +1,8 @@
 <script setup lang="ts">
 
 const props = defineProps<{
-  number: number
+  number: number,
+  currentPage: number
 }>()
 
 const emit = defineEmits<{ (event: 'update', numberOfPage: number): void }>()
@@ -13,6 +14,9 @@ const changePage = () => {
 
 <template>
 
-<span @click="changePage" class="p-3 pl-5 pr-5 rounded bg-stone-500 hover:bg-stone-400 cursor-pointer">{{ number }}</span>
+  <span @click="changePage" :class="[
+    'p-3 pl-5 pr-5 rounded hover:bg-stone-400 cursor-pointer',
+    number == currentPage ? 'bg-stone-600' : 'bg-stone-500' ]">{{ number
+    }}</span>
 
 </template>

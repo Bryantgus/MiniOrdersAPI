@@ -43,6 +43,12 @@ const changePage = (page: number) => {
   }
 }
 
+const changePageOnce = (value: number) => {
+  if (value == -1 && currentPage.value == 1 ) return
+  if (value == 1 && totalPages.value == currentPage.value ) return
+  currentPage.value = currentPage.value + value
+}
+
 const seleccionarAccion = (payload: any) => {
   emit('accion', payload)
 }
@@ -76,8 +82,8 @@ onMounted(fetchData)
   </table>
 
   <div class="flex gap-1">
-    <button class="p-3 bg-stone-500 hover:bg-stone-400 rounded cursor-pointer"><</button>
-    <NumberPage v-for="n in totalPages" :key="n" :number="n" @update="changePage" />
-    <button class="p-3 bg-stone-500 hover:bg-stone-400 rounded cursor-pointer">></button>
+    <button class="p-3 bg-stone-500 hover:bg-stone-400 rounded cursor-pointer" @click="changePageOnce(-1)"><</button>
+    <NumberPage v-for="n in totalPages" :key="n" :number="n" :current-page="currentPage" @update="changePage" />
+    <button class="p-3 bg-stone-500 hover:bg-stone-400 rounded cursor-pointer" @click="changePageOnce(1)">></button>
   </div>
 </template>
