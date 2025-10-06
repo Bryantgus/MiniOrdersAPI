@@ -16,7 +16,7 @@ public class OrdersController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    public IActionResult GetOrderById(int id)
+    public IActionResult GetOrderById(Guid id)
     {
         var order = Orders.FirstOrDefault(o => o.Guid == id);
         if (order == null) return NotFound(new { message = "Orden no encontrada" });
@@ -28,8 +28,8 @@ public class OrdersController : ControllerBase
     {
         var newOrder = new Order
         {
-            Guid = Orders.Count > 0 ? Orders[^1].Guid + 1 : 1,
-            Fecha = DateTime.Now.ToString("dd/MM/yyyy"),
+            Guid = Guid.NewGuid(),
+            Fecha = DateTime.Now,
             Nombre = dto.Nombre,
             Total = dto.Total
         };
@@ -39,7 +39,7 @@ public class OrdersController : ControllerBase
     }
 
     [HttpPut("{id}")]
-    public IActionResult UpdateOrder(int id, [FromBody] CreateOrderDto dto)
+    public IActionResult UpdateOrder(Guid id, [FromBody] CreateOrderDto dto)
     {
         var order = Orders.FirstOrDefault(o => o.Guid == id);
         if (order == null) return NotFound(new { message = "Orden no encontrada" });
@@ -50,7 +50,7 @@ public class OrdersController : ControllerBase
     }
 
     [HttpDelete("{id}")]
-    public IActionResult DeleteOrder(int id)
+    public IActionResult DeleteOrder(Guid id)
     {
         var order = Orders.FirstOrDefault(o => o.Guid == id);
         if (order == null) return NotFound(new { message = "Orden no encontrada" });
@@ -69,8 +69,8 @@ public class CreateOrderDto
 // Modelo de orden
 public class Order
 {
-    public int Guid { get; set; }
+    public Guid Guid { get; set; }
     public string Nombre { get; set; } = string.Empty;
-    public string Fecha { get; set; } = string.Empty;
+    public DateTime Fecha { get; set; }
     public int Total { get; set; }
 }

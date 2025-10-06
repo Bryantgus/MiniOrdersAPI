@@ -48,9 +48,20 @@ const postOrder = async () => {
   }
 }
 
+const formatNombre = () => {
+  let value = nombre.value.replace(/[^A-Za-zÁÉÍÓÚáéíóúÑñ\s]/g, '');
+
+  value = value
+    .toLowerCase()
+    .replace(/\b\w/g, (char) => char.toUpperCase()) 
+    .replace(/\s+/g, ' ') 
+
+  nombre.value = value.trim();
+};
+
 const backOrderView = () => {
   emit('update', { value: true, apiResponse: "" })
-} 
+}
 
 </script>
 
@@ -62,7 +73,8 @@ const backOrderView = () => {
       <div class="flex flex-col gap-1">
         <span class="text-[18px] font-semibold">Nombre</span>
         <input v-model="nombre" class="focus:outline focus:outline-stone-300 p-1 bg-stone-400 rounded-xl"
-          placeholder="Ingresar nombre" type="text">
+          placeholder="Ingresar nombre" type="text" @input="formatNombre"
+          pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+" Z>
         <span v-if="warningInputs.nombreW" class="text-red-900 font[12px]">El <strong>nombre</strong> no puede ir
           vacio</span>
       </div>
@@ -71,11 +83,13 @@ const backOrderView = () => {
         <span class="text-[18px] font-semibold">Total</span>
         <input v-model="total" class="focus:outline focus:outline-stone-300 p-1 bg-stone-400 rounded-xl"
           placeholder="Ingresar el Total" type="number">
-        <span v-if="warningInputs.totalW" class="text-red-900 font[12px] w-[200px]">El <strong>total</strong> debe ser mayor a 0 y no debe ir vacio</span>
+        <span v-if="warningInputs.totalW" class="text-red-900 font[12px] w-[200px]">El <strong>total</strong> debe ser
+          mayor a 0 y no debe ir vacio</span>
       </div>
 
       <button type="submit"
-        class="mx-auto w-50 cursor-pointer bg-stone-700 mt-2 text-white p-2 rounded hover:bg-stone-600">Agregar Orden</button>
+        class="mx-auto w-50 cursor-pointer bg-stone-700 mt-2 text-white p-2 rounded hover:bg-stone-600">Agregar
+        Orden</button>
     </form>
 
     <button @click="backOrderView"

@@ -11,7 +11,15 @@ const fetchData = async () => {
     const response = await fetch("http://localhost:5068/api/Orders")
     if (!response.ok) throw new Error('Error en la solicitud')
     const allOrders: OrderInfoType[] = await response.json()
-    orders.value = allOrders;
+
+    orders.value = allOrders.map((value: OrderInfoType, index: number) => {
+      return {
+        guid: index += 1,
+        nombre: value.nombre,
+        fecha: value.fecha.toString(),
+        total: value.total
+      }
+    })
   } catch (error) {
     console.error(error)
   }
@@ -44,8 +52,8 @@ const changePage = (page: number) => {
 }
 
 const changePageOnce = (value: number) => {
-  if (value == -1 && currentPage.value == 1 ) return
-  if (value == 1 && totalPages.value == currentPage.value ) return
+  if (value == -1 && currentPage.value == 1) return
+  if (value == 1 && totalPages.value == currentPage.value) return
   currentPage.value = currentPage.value + value
 }
 
@@ -83,7 +91,7 @@ onMounted(fetchData)
 
   <div class="flex gap-1">
     <button class="p-3 bg-stone-500 hover:bg-stone-400 rounded cursor-pointer" @click="changePageOnce(-1)"><</button>
-    <NumberPage v-for="n in totalPages" :key="n" :number="n" :current-page="currentPage" @update="changePage" />
-    <button class="p-3 bg-stone-500 hover:bg-stone-400 rounded cursor-pointer" @click="changePageOnce(1)">></button>
+        <NumberPage v-for="n in totalPages" :key="n" :number="n" :current-page="currentPage" @update="changePage" />
+        <button class="p-3 bg-stone-500 hover:bg-stone-400 rounded cursor-pointer" @click="changePageOnce(1)">></button>
   </div>
 </template>

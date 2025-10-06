@@ -88,6 +88,20 @@ const cerrarAcciones = () => {
   emit('close', '')
 }
 
+const formatNombre = () => {
+  let value = dataOrder.value.nombre;
+
+  value = value.replace(/[^A-Za-zÁÉÍÓÚáéíóúÑñ\s]/g, '');
+
+  value = value
+    .toLowerCase()
+    .replace(/\b\w/g, (char) => char.toUpperCase())
+    .replace(/\s{2,}/g, ' ');
+
+  dataOrder.value.nombre = value;
+};
+
+
 onMounted(fetchOrder)
 </script>
 
@@ -135,7 +149,8 @@ onMounted(fetchOrder)
 
             <div>
               <span class="font-semibold">Nombre: </span>
-              <input class="border border-stone-400 rounded-xl p-1 pl-3" type="text" v-model="dataOrder.nombre">
+              <input class="border border-stone-400 rounded-xl p-1 pl-3" type="text" v-model="dataOrder.nombre"
+                @input="formatNombre">
             </div>
             <span v-if="warningInputs.nombreW" class="text-red-900 font[12px]">El <strong>nombre</strong> no puede ir
               vacio</span>
