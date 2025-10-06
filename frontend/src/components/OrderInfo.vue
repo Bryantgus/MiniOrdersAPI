@@ -22,7 +22,7 @@ const acciones = (accionesType: 'ver' | 'editar' | 'eliminar') => {
   <tr class="bg-stone-400">
     <td class="py-2 px-4 border-b">{{ order.guid }}</td>
     <td class="py-2 px-4 border-b">{{ order.nombre }}</td>
-    <td class="py-2 px-4 border-b">{{ order.fecha }}</td>
+    <td class="py-2 px-4 border-b">{{ order.fecha.toString().slice(0,10) }}</td>
     <td class="py-2 px-4 border-b">${{ order.total }}</td>
     <td class="py-2 px-4 border-b">
       <div class="flex gap-5 items-center justify-center">
